@@ -1,0 +1,10 @@
+title: "GSoC 2026 Final Report"
+description: "My Google Summer of Code 2026 project with DIPY."
+url: "https://tomasguija.github.io"
+baseurl: "/gsoc-2026-dipy"
+theme: minima
+
+author:
+  name: "Tomás Guija-Valiente"
+
+header_pages: []
