@@ -4,7 +4,6 @@ url: "https://tomasguija.github.io"
 baseurl: "/gsoc-2026-dipy"
 theme: minima
 
-author:
-  name: "Tomás Guija-Valiente"
+author: "Tomás Guija-Valiente"
 
 header_pages: []
