@@ -5,18 +5,14 @@ description: "My Google Summer of Code 2026 work on new registration metrics, a 
 author: "Tomás Guija-Valiente"
 ---
 
-<div class="project-logos" aria-label="Project organizations">
-  <a href="https://summerofcode.withgoogle.com/" aria-label="Google Summer of Code">
-    <img class="gsoc-logo" src="{{ '/docs/GSoC.svg' | relative_url }}" alt="Google Summer of Code">
-  </a>
-  <div class="partner-logos">
-    <a href="https://www.python.org/psf/" aria-label="Python Software Foundation">
-      <img class="psf-logo" src="{{ '/docs/PSF.png' | relative_url }}" alt="Python Software Foundation">
-    </a>
-    <a href="https://dipy.org/" aria-label="DIPY — Diffusion Imaging in Python">
-      <img class="dipy-logo" src="{{ '/docs/dipy-logo.png' | relative_url }}" alt="DIPY — Diffusion Imaging in Python">
-    </a>
-  </div>
+<div align="center">
+  <p>
+    <img src="./docs/GSoC.svg" alt="Google Summer of Code" width="410">
+  </p>
+  <p>
+    <img src="./docs/PSF.png" alt="Python Software Foundation" width="260" style="margin: 0 18px;">
+    <img src="./docs/dipy-logo.png" alt="DIPY — Diffusion Imaging in Python" width="260" style="margin: 0 18px;">
+  </p>
 </div>
 
 <script type="text/x-mathjax-config">
@@ -38,20 +34,6 @@ I am Tomás Guija-Valiente, a computer vision and machine learning researcher at
 My project, [**Adding New Similarity Metrics for DIPY's Image Registration Frameworks**](https://github.com/satwiksps/GSoC_archive_2026/blob/main/Python%20Software%20Foundation/Accepted/DIPY.pdf), focused on medical image registration: the process of estimating a spatial transformation that aligns two or more images. Registration is a fundamental component of longitudinal analysis, atlas construction, and population studies, but its performance depends heavily on how image similarity is defined and how efficiently the transformation can be optimized.
 
 I began the summer with one main goal: adding Mutual Information to DIPY’s deformable registration framework. As the project progressed, I also worked on improving performance, testing the implementations, building better benchmarks, and refining related APIs. Overall, the project became a valuable introduction to mathematical implementation, scientific software development, and collaborative open-source work, with the guidance and support of my mentors, [Serge](https://sergekoudoro.com/) and [Atharva](https://atharva-shah-2298.github.io/). Eight pull requests and many commits later, this report brings together the main results of that experience: the new algorithms, performance improvements, fixes, and lessons learned along the way.
-
-<nav class="report-toc" aria-labelledby="contents-title">
-  <h2 id="contents-title">In this report</h2>
-  <ul>
-    <li><a href="#1-mutual-information-for-syn-registration">1. Mutual Information for SyN</a></li>
-    <li><a href="#2-local-cross-correlation-for-affine-registration">2. Local CC for affine registration</a></li>
-    <li><a href="#3-faster-syn-kernels-with-openmp">3. Faster SyN kernels</a></li>
-    <li><a href="#4-two-focused-registration-fixes">4. Registration fixes</a></li>
-    <li><a href="#5-robust-synthseg-integration">5. SynthSeg integration</a></li>
-    <li><a href="#6-reproducible-evaluation-against-ants">6. Evaluation against ANTs</a></li>
-    <li><a href="#conclusion">Conclusion</a></li>
-    <li><a href="#project-links-and-references">Project links and references</a></li>
-  </ul>
-</nav>
 
 ## Summary
 
