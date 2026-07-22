@@ -35,6 +35,23 @@ My project, [**Adding New Similarity Metrics for DIPY's Image Registration Frame
 
 I began the summer with one main goal: adding Mutual Information to DIPY’s deformable registration framework. As the project progressed, I also worked on improving performance, testing the implementations, building better benchmarks, and refining related APIs. Overall, the project became a valuable introduction to mathematical implementation, scientific software development, and collaborative open-source work, with the guidance and support of my mentors, [Serge](https://sergekoudoro.com/) and [Atharva](https://atharva-shah-2298.github.io/). Eight pull requests and many commits later, this report brings together the main results of that experience: the new algorithms, performance improvements, fixes, and lessons learned along the way.
 
+## GSoC Blog Timeline
+
+Throughout the project, I documented my progress through a series of weekly
+posts published on the DIPY blog:
+
+| Date | Blog post |
+|---|---|
+| May 25, 2026 | [Starting My GSoC Journey with DIPY](https://dipy.org/posts/2026/2026_05_25_Tomas.html) |
+| June 1, 2026 | [First Coding Week: Benchmarking and MI Study](https://dipy.org/posts/2026/2026_06_01_Tomas.html) |
+| June 8, 2026 | [Second Coding Week: First MI Implementation](https://dipy.org/posts/2026/2026_06_08_Tomas.html) |
+| June 15, 2026 | [Third Coding Week: MI Testing and Benchmarking](https://dipy.org/posts/2026/2026_06_15_Tomas.html) |
+| June 22, 2026 | [Fourth Coding Week: Halfway There!](https://dipy.org/posts/2026/2026_06_22_Tomas.html) |
+| June 29, 2026 | [Fifth Coding Week: First MI Implementation PR](https://dipy.org/posts/2026/2026_06_29_Tomas.html) |
+| July 6, 2026 | [Sixth Coding Week: Profiling, Performance, and New Metric for Affine Registration](https://dipy.org/posts/2026/2026_07_06_Tomas.html) |
+| July 13, 2026 | [Seventh Coding Week: Cleaning Up Near the Finish Line!](https://dipy.org/posts/2026/2026_07_13_Tomas.html) |
+| July 20, 2026 | Eighth Coding Week: The Final Coding Week! |
+
 ## Summary
 
 | Area | Contribution | Pull request |
