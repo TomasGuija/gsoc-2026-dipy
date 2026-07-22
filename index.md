@@ -197,7 +197,7 @@ Using four threads reduced runtime while preserving the final NCC.
 
 **Pull request:** [#4071 — Avoid redundant Parzen spline-bin evaluation](https://github.com/dipy/dipy/pull/4071)
 
-While developing the SyN MI path, I found that the existing histogram loop evaluated moving-bin offsets `[-2, -1, 0, 1, 2]`. For a continuous bin coordinate $c_n$, with $c=\lfloor c_n\rfloor$, the candidate $q=c-2$ always satisfies $|q-c_n|\ge 2$. The cubic B-spline is zero there, so the effective offsets are `[-1, 0, 1, 2]`.
+While developing MI for SyN, I noticed that the histogram loop checked five moving-bin offsets: `[-2, -1, 0, 1, 2]`. The `-2` offset is always at least two bins away from the continuous bin coordinate, where the cubic B-spline weight is zero. In practice, only `[-1, 0, 1, 2]` can contribute.
 
 The change removes that evaluation from PDF and gradient computations and replaces hard-coded radius values with the existing `padding` variable. 
 
