@@ -278,7 +278,7 @@ Writing code has never been more accessible, especially with the tools available
 
 For that reason, the end of GSoC does not feel like an ending. I see it as the beginning of what I hope will be a long and rewarding journey contributing to free and accessible open-source software. I plan to continue supporting the contributions that remain under review, working with DIPY, and participating more broadly in the open-source community to help build useful tools that anyone can access.
 
-I am especially grateful to my mentors, [Serge Koudoro](https://sergekoudoro.com/) and [Atharva Shah](https://atharva-shah-2298.github.io/), for their guidance, patience, thoughtful reviews, and trust throughout the project. I also want to thank the wider DIPY community for welcoming me and making this first experience in open source such a meaningful one.
+I am especially grateful to my mentors, [Serge Koudoro](https://sergekoudoro.com/), [Atharva Shah](https://atharva-shah-2298.github.io/) and [Jong Sung Park](https://pjsjongsung.github.io/), for their guidance, patience, thoughtful reviews, and trust throughout the project. I also want to thank the wider DIPY community for welcoming me and making this first experience in open source such a meaningful one.
 
 ## Project links and references
 
