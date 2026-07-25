@@ -33,7 +33,7 @@ I am Tomás Guija-Valiente, a computer vision and machine learning researcher at
 
 My project, [**Adding New Similarity Metrics for DIPY's Image Registration Frameworks**](https://github.com/satwiksps/GSoC_archive_2026/blob/main/Python%20Software%20Foundation/Accepted/DIPY.pdf), focused on medical image registration: the process of estimating a spatial transformation that aligns two or more images. Registration is a fundamental component of longitudinal analysis, atlas construction, and population studies, but its performance depends heavily on how image similarity is defined and how efficiently the transformation can be optimized.
 
-I began the summer with one main goal: adding Mutual Information to DIPY’s deformable registration framework. As the project progressed, I also worked on improving performance, testing the implementations, building better benchmarks, and refining related APIs. Overall, the project became a valuable introduction to mathematical implementation, scientific software development, and collaborative open-source work, with the guidance and support of my mentors, [Serge](https://sergekoudoro.com/) and [Atharva](https://atharva-shah-2298.github.io/). Eight pull requests and many commits later, this report brings together the main results of that experience: the new algorithms, performance improvements, fixes, and lessons learned along the way.
+I began the summer with one main goal: adding Mutual Information to DIPY’s deformable registration framework. As the project progressed, I also worked on improving performance, testing the implementations, building better benchmarks, and refining related APIs. Overall, the project became a valuable introduction to mathematical implementation, scientific software development, and collaborative open-source work, with the guidance and support of my mentors, [Serge](https://sergekoudoro.com/) and [Atharva](https://atharva-shah-2298.github.io/). Twelve pull requests and many commits later, this report brings together the main results of that experience: the new algorithms, performance improvements, fixes, and lessons learned along the way.
 
 ## GSoC Blog Timeline
 
@@ -59,9 +59,11 @@ posts published on the DIPY blog:
 | Deformable registration | Mutual Information metric for SyN with dense, local-support derivatives | [#4067](https://github.com/dipy/dipy/pull/4067) |
 | Affine registration | Local cross-correlation metric compatible with `AffineRegistration` | [#4078](https://github.com/dipy/dipy/pull/4078) |
 | SyN performance | Threaded field composition, fixed-point inversion, and image warping | [#4073](https://github.com/dipy/dipy/pull/4073), [#4083](https://github.com/dipy/dipy/pull/4083) |
-| MI backend | Removed a redundant cubic B-spline evaluation from Parzen histograms | [#4071](https://github.com/dipy/dipy/pull/4071) |
+| MI backend | Removed a redundant B-spline evaluation and unified Parzen PDF normalization | [#4071](https://github.com/dipy/dipy/pull/4071), [#4087](https://github.com/dipy/dipy/pull/4087) |
+| CC backend | Unified the duplicated forward and backward SyN CC kernels | [#4088](https://github.com/dipy/dipy/pull/4088) |
 | Metric correctness | Fixed stale energy state after the backward CC step | [#4047](https://github.com/dipy/dipy/pull/4047) |
 | SynthSeg | Added cleaner optional brain masks and flexible model-space dimensions | [#4052](https://github.com/dipy/dipy/pull/4052), [#4080](https://github.com/dipy/dipy/pull/4080) |
+| Documentation | Clarified 2D Parzen support and affine MI return values | [#4085](https://github.com/dipy/dipy/pull/4085), [#4086](https://github.com/dipy/dipy/pull/4086) |
 | Evaluation | Built a reproducible, SLURM-based comparison pipeline for DIPY and ANTs | [Benchmarking branch](https://github.com/TomasGuija/dipy/tree/mi-benchmarking/benchmarks/registration) |
 
 ## 1. Mutual Information for SyN registration
@@ -105,6 +107,8 @@ The new implementation avoids that large intermediate representation by exploiti
 This produces the dense vector field expected by `SymmetricDiffeomorphicRegistration` without constructing a histogram-by-voxel derivative tensor. The low-level work is implemented in Cython alongside DIPY's existing Parzen-histogram code, with support for 2D and 3D `float32` and `float64` images.
 
 At the Python level, the PR adds an `MIMetric` class that follows the same lifecycle as DIPY's other SyN metrics: initialize the current iteration, compute forward and backward updates, and report the scalar energy. The design was informed by the local-support path in [ITK's Mattes MI metric](https://docs.itk.org/projects/doxygen/en/stable/classitk_1_1MattesMutualInformationImageToImageMetricv4.html).
+
+The review of this work also exposed an ambiguity in the existing Parzen-histogram documentation. [PR #4085](https://github.com/dipy/dipy/pull/4085) clarified that the relevant methods support 2D data as well as 3D data, making that behavior explicit for the related MI work.
 
 ### Validation
 
@@ -157,6 +161,8 @@ The new metric:
 
 At the API level, `CrossCorrelationMetric` follows the same optimizer-facing structure as DIPY's [existing affine MI metric](https://docs.dipy.org/stable/reference/dipy.align.html#dipy.align.imaffine.MutualInformationMetric), implementing `setup`, `distance`, `gradient`, and `distance_and_gradient`.
 
+The API review also led to [PR #4086](https://github.com/dipy/dipy/pull/4086), which clarified the return values of the existing `MutualInformationMetric` methods and made their docstrings more consistent.
+
 ### Validation
 
 In a representative 3D b0-to-b0 registration, global NCC improved at every stage:
@@ -208,7 +214,7 @@ Tests compare one-thread and multi-thread results across both dimensions, both i
 Using four threads reduced runtime while preserving the final NCC.
 
 
-## 4. Two focused registration fixes
+## 4. Registration fixes and backend cleanups
 
 ### 4.1 Removing a redundant Parzen evaluation
 
@@ -218,13 +224,27 @@ While developing MI for SyN, I noticed that the histogram loop checked five movi
 
 The change removes that evaluation from PDF and gradient computations and replaces hard-coded radius values with the existing `padding` variable. 
 
-### 4.2 Correct energy state after backward CC updates
+### 4.2 Consistent Parzen PDF normalization
+
+**Pull request:** [#4087 — Simplify Parzen PDF normalization](https://github.com/dipy/dipy/pull/4087)
+
+Dense 2D, dense 3D, and sparse Parzen-histogram paths previously normalized their PDFs in different ways. This merged PR makes them consistently use `valid_points` and removes the redundant `total_sum` accumulation. Under the standard `AffineRegistration` workflow, where image intensities are normalized to $[0,1]$, this preserves the expected numerical behavior while keeping the PDFs and their gradients consistent. Excluding samples mapped outside the moving-image domain remains a separate, larger improvement.
+
+### 4.3 Correct energy state after backward CC updates
 
 **Pull request:** [#4047 — Update CCMetric energy after backward step](https://github.com/dipy/dipy/pull/4047)
 
 `CCMetric.compute_backward()` computed the backward energy but did not assign it to `self.energy`. Direct API users could therefore receive a stale or unset value from `get_energy()`.
 
 The fix makes the backward path consistent with the forward path and with other metrics. Tests for `CCMetric` and `SSDMetric` now verify energy reporting after independent forward and backward computations. The issue was silent in the standard SyN workflow and was not expected to alter its registration result, but the fix makes the metric contract reliable for direct and custom use.
+
+### 4.4 Unifying the forward and backward CC steps
+
+**Pull request:** [#4088 — Unify forward and backward CC steps](https://github.com/dipy/dipy/pull/4088)
+
+While working on affine CC, I found that the existing SyN forward and backward kernels duplicated almost all of their allocation, voxel loops, validity checks, energy calculation, and output logic. This PR consolidates them into shared 2D and 3D functions, with an explicit argument selecting the update direction, without changing the numerical behavior.
+
+Because the four previous low-level functions are directly callable, the current review asks that their names remain available through a deprecation cycle. The PR is therefore still under review while that backward-compatible transition is addressed.
 
 ## 5. Robust SynthSeg integration
 
@@ -285,7 +305,7 @@ The principal outcomes are:
 - a dense local-support Mutual Information formulation for SyN;
 - a local cross-correlation metric for affine registration;
 - multithreaded composition, inversion, and warping kernels;
-- two focused registration fixes already merged into DIPY;
+- focused improvements to Parzen normalization, CC backend reuse, and registration documentation;
 - more robust SynthSeg mask and input-size handling; and
 - a reproducible framework for comparing DIPY and ANTs.
 
