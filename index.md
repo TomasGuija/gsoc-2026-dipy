@@ -203,7 +203,6 @@ Threading produced a **1.24× speed-up** over serial DIPY while preserving the s
 **Pull request:** [#4083 — Multithreading 2D and 3D image warping](https://github.com/dipy/dipy/pull/4083)
 
 The follow-up PR parallelizes `warp_2d`, `warp_2d_nn`, `warp_3d`, and `warp_3d_nn`, covering linear and nearest-neighbor interpolation. Dedicated row and slice helpers give each worker its own interpolation buffer. `DiffeomorphicMap` and `SymmetricDiffeomorphicRegistration` forward the optional thread count while preserving compatibility with existing calls.
-
 Tests compare one-thread and multi-thread results across both dimensions, both interpolation modes, and forward and inverse map operations. A small 3D SyN timing experiment produced the following results:
 
 | Revision and mode | Time (s) | NCC |
@@ -243,8 +242,6 @@ The fix makes the backward path consistent with the forward path and with other 
 **Pull request:** [#4088 — Unify forward and backward CC steps](https://github.com/dipy/dipy/pull/4088)
 
 While working on affine CC, I found that the existing SyN forward and backward kernels duplicated almost all of their allocation, voxel loops, validity checks, energy calculation, and output logic. This PR consolidates them into shared 2D and 3D functions, with an explicit argument selecting the update direction, without changing the numerical behavior.
-
-Because the four previous low-level functions are directly callable, the current review asks that their names remain available through a deprecation cycle. The PR is therefore still under review while that backward-compatible transition is addressed.
 
 ## 5. Robust SynthSeg integration
 
