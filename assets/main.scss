@@ -11,7 +11,7 @@
   --text-color: #000000;
   --muted-color: #6c757d;
   --border-color: #dee2e6;
-  --link-color: #b509ac;
+  --link-color: #0067b8;
 }
 
 body {
@@ -91,9 +91,15 @@ td {
   border: 1px solid var(--border-color);
 }
 
-th {
+.post-content table th {
   background: var(--surface-background);
+  color: var(--text-color);
   font-weight: 500;
+}
+
+.post-content table tr,
+.post-content table tr:nth-child(even) {
+  background: transparent;
 }
 
 code,
