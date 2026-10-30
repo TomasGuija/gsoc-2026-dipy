@@ -7,7 +7,7 @@ author: "Tomás Guija-Valiente"
 
 <div align="center">
   <p>
-    <img src="./docs/GSoC.svg" alt="Google Summer of Code" width="410">
+    <img class="gsoc-logo" src="./docs/GSoC.svg" alt="Google Summer of Code" width="410">
   </p>
   <p>
     <img src="./docs/PSF.png" alt="Python Software Foundation" width="260" style="margin: 0 18px;">
