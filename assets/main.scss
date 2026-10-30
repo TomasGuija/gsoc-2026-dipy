@@ -1,0 +1,144 @@
+---
+---
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+@import "minima";
+
+:root {
+  color-scheme: light dark;
+  --page-background: #ffffff;
+  --surface-background: #f8f9fa;
+  --text-color: #000000;
+  --muted-color: #6c757d;
+  --border-color: #dee2e6;
+  --link-color: #b509ac;
+}
+
+body {
+  background: var(--page-background);
+  color: var(--text-color);
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.wrapper {
+  box-sizing: border-box;
+  max-width: 930px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.page-content {
+  padding: 3.5rem 0;
+}
+
+.post-title {
+  color: var(--text-color);
+  font-size: 2.5rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.post-content {
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+  color: var(--text-color);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.post-content h2 {
+  margin-top: 2.75rem;
+  font-size: 2rem;
+}
+
+.post-content h3 {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+}
+
+a,
+a:visited {
+  color: var(--link-color);
+}
+
+a:hover,
+a:focus {
+  color: var(--link-color);
+  text-decoration: underline;
+}
+
+table {
+  display: table;
+  width: 100%;
+  margin: 1.5rem 0;
+  color: var(--text-color);
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--border-color);
+}
+
+th {
+  background: var(--surface-background);
+  font-weight: 500;
+}
+
+code,
+pre {
+  background: var(--surface-background);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+blockquote {
+  color: var(--muted-color);
+  border-left-color: var(--link-color);
+  font-style: normal;
+}
+
+img {
+  height: auto;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page-background: #1c1c1d;
+    --surface-background: #212529;
+    --text-color: #e8e8e8;
+    --muted-color: #b8b8b8;
+    --border-color: #424246;
+    --link-color: #2698ba;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .page-content {
+    padding: 2rem 0;
+  }
+
+  .post-title {
+    font-size: 2rem;
+  }
+
+  .post-content h2 {
+    font-size: 1.65rem;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}

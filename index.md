@@ -27,7 +27,7 @@ author: "Tomás Guija-Valiente"
 </script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
-I am Tomás Guija-Valiente, a computer vision and machine learning researcher at the medical imaging laboratory [PROMISE–LAIMBIO](https://www.linkedin.com/company/promise-laimbio/). My academic background combines mathematics, computer science, and artificial intelligence. Over the past year, I have become increasingly interested in applying these skills to the medical domain, where research can have a meaningful real-world impact and open-source software plays a particularly important role.
+I am Tomás Guija-Valiente, a computer vision and machine learning researcher at the medical imaging laboratory [PROMISE–LAIMBIO](http://promise.urjc.es/en/). My academic background combines mathematics, computer science, and artificial intelligence. Over the past year, I have become increasingly interested in applying these skills to the medical domain, where research can have a meaningful real-world impact and open-source software plays a particularly important role.
 
 [Google Summer of Code 2026](https://summerofcode.withgoogle.com/) gave me the opportunity to work at this intersection. This year, I joined [DIPY](https://dipy.org/) through the [Python Software Foundation](https://python-gsoc.org/), hoping not only to implement a new algorithm or feature, but also to learn how a mature scientific library is designed, tested, reviewed, and maintained by its community.
 
@@ -50,7 +50,7 @@ posts published on the DIPY blog:
 | June 29, 2026 | [Fifth Coding Week: First MI Implementation PR](https://dipy.org/posts/2026/2026_06_29_Tomas.html) |
 | July 6, 2026 | [Sixth Coding Week: Profiling, Performance, and New Metric for Affine Registration](https://dipy.org/posts/2026/2026_07_06_Tomas.html) |
 | July 13, 2026 | [Seventh Coding Week: Cleaning Up Near the Finish Line!](https://dipy.org/posts/2026/2026_07_13_Tomas.html) |
-| July 20, 2026 | Eighth Coding Week: The Final Coding Week! |
+| July 20, 2026 | [Eighth Coding Week: The Final Coding Week!](https://dipy.org/posts/2026/2026_07_20_Tomas.html) |
 
 ## Summary
 
@@ -323,5 +323,6 @@ I am especially grateful to my mentors, [Serge Koudoro](https://sergekoudoro.com
 - [Google Summer of Code](https://summerofcode.withgoogle.com/) and [PSF GSoC](https://python-gsoc.org/)
 
 ## Personal links
+- [Personal website](https://tomasguija.github.io/)
 - [LinkedIn](https://www.linkedin.com/in/tomas-guija-valiente)
 - [GitHub](https://github.com/TomasGuija/)
